@@ -1,4 +1,4 @@
-model Wumpus_template
+model template
 
 global {
     int total_gold_collected <- 0;
