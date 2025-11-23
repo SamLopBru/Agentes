@@ -1,4 +1,4 @@
-model Wumpus_template
+model template
 
 global {
     int total_gold_collected <- 0;
@@ -15,10 +15,10 @@ global {
     bool is_batch <- false;
 	
 	// Player variables
-    float risk_tolerance <- rnd(0.15, 0.35);  // REDUCED from 0.3-0.7
-    float curiosity <- rnd(0.2, 0.4);         // REDUCED from 0.4-0.8
+    float risk_tolerance <- rnd(0.15, 0.35);  
+    float curiosity <- rnd(0.2, 0.4);         
     int stuck_counter <- 0;
-    int safe_moves_count <- 0;                // NEW: Track consecutive safe moves
+    int safe_moves_count <- 0;                
     
     // Difficulty level (set by experiment parameters)
     string difficulty <- "Easy";
@@ -253,7 +253,7 @@ species player skills: [moving] control: simple_bdi {
     
     perceive target: odorArea in: 2 {
         // Wumpus is more dangerous - detect 90% of the time
-        if (flip(0.9)) {  // Higher detection rate for Wumpus
+        if (flip(0.9)) {  
             focus id: "odor_detected" var: location strength: 9.0;
             ask myself {
                 do add_belief(wumpus_detected);
@@ -345,7 +345,7 @@ species player skills: [moving] control: simple_bdi {
             }
         }
         
-        // Move to the least dangerous neighbor (which MIGHT still be a hazard)
+        // Move to the least dangerous neighbor
         if (best_neighbor != nil) {
             write "Risk move: danger score = " + min_danger_score;
             previous_cell <- my_cell;
@@ -610,5 +610,3 @@ experiment Full_Exploration type: batch repeat: 5 keep_seed: false until: (cycle
         
     }
 }
-
-
